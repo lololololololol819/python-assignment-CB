@@ -1,0 +1,25 @@
+dna = "ACGTACGATCGATCGATCG"
+
+# 2. A simple Position Weight Matrix (PWM) for a 3-bp motif (A, C, G, T)
+# Rows are A, C, G, T. Columns are positions 0, 1, and 2.
+pwm = {
+    'A': [ 1.5, -2.0,  0.8],
+    'C': [-0.5,  1.8, -1.0],
+    'G': [-0.8, -1.2,  1.9],
+    'T': [-2.0,  0.5,  1.6]
+}
+
+motif_len = 3
+threshold = 2.0
+
+print(f"Scanning DNA: {dna}\n")
+
+for i in range(len(dna) - motif_len + 1):
+    window = dna[i : i + motif_len]
+    
+    
+    for pos, base in enumerate(window):
+        score += pwm[base][pos]
+        
+    if score >= threshold:
+        print(f"Found match at position {i}: '{window}' with score {score:.2f}")
